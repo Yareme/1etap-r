@@ -120,7 +120,18 @@ class StatisticsController extends Controller
 
 
         public function consonants(){
-            return View::make('consonants');
+
+            $tabel = DB::table('data')->get();
+
+            $consonantCount = 0;
+
+            foreach ($tabel as $customer) {
+                $customerName = str_replace(' ', '', $customer->customer);
+                $consonantCount += preg_match_all('/[bcdfghjklmnpqrstvwxyz]/i', $customerName);
+            }
+
+
+            return View::make('consonants',['data'=>$consonantCount]);
         }
 
 }
