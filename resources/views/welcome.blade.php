@@ -26,6 +26,17 @@
                 <input type="file" name="file">
                 <button type="submit">Dodaj plik</button>
             </form>
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+            @endif
+
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
 
             <a href="{{route('top')}}" class="btn btn-outline-primary">Top 30</a>
             <a href="{{route('grup')}}" class="btn btn-outline-primary">Grupa Kraj</a>

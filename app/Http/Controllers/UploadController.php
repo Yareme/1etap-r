@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UploadController extends Controller
@@ -16,13 +17,20 @@ class UploadController extends Controller
         ]);*/
 
         $file = $request->file('file');
+
+            if ($file== null){
+                Session::flash('error', 'Dodaj plik.');
+                return redirect()->back()->with('error', 'Nie podaleś pliku.');
+            }
         $mime = $file->getMimeType();
 
+
+
         switch ($mime) {
+
             case 'application/json':
                 $this->processJsonFile($file);
                 break;
-
 
             case 'text/plain':
 
