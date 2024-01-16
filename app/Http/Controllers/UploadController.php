@@ -106,7 +106,6 @@ class UploadController extends Controller
         while (($line = fgets($handle)) !== false) {
             $data = explode('|', $line);
 
-
             Data::create([
                 'Customer' => $data[0],
                 'Country' => $data[1],
