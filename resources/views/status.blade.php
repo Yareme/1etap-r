@@ -1,11 +1,6 @@
 <div>
     <h1>Status</h1>
 
-
-    @php
-        $groupedData = collect($data)->groupBy('status');
-    @endphp
-
     <table>
         <thead>
         <tr>
@@ -15,28 +10,13 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($groupedData as $status => $statuses)
-            @php
-                $maxStatusCount = $statuses->max('status_count');
-                $maxStatusFormats = $statuses->filter(function ($item) use ($maxStatusCount) {
-                    return $item->status_count == $maxStatusCount;
-                })->pluck('format')->unique()->implode(', ');
-            @endphp
-
+        @foreach($data as $statusItem)
             <tr>
-                <td>{{ $status }}</td>
-                <td>{{ $maxStatusCount }}</td>
-                <td>{{ $maxStatusFormats }}</td>
+                <td>{{ $statusItem->status }}</td>
+                <td>{{ $statusItem->status_count }}</td>
+                <td>{{ $statusItem->format }}</td>
             </tr>
         @endforeach
         </tbody>
     </table>
-
-
-
-
-
-
-
-
 </div>
